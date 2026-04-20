@@ -28,3 +28,16 @@ function operate(num1, operator, num2){
 }
 
 let number1, operator, number2;
+
+const digitBtns = document.getElementsByClassName("digit");
+const mainText = document.getElementById("main-text");
+
+const handleDigitInput = (text) => {
+    mainText.textContent = text;
+}
+
+Array.prototype.forEach.call(digitBtns, function(digitBtn) {
+    digitBtn.addEventListener("click", () => {
+        handleDigitInput(digitBtn.textContent);
+    });
+});
