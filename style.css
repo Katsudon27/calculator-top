@@ -4,6 +4,7 @@ html{
     width: 100%;
     justify-content: center;
     align-items: center;
+    font-size: 0;
 }
 
 #main-container{
@@ -22,6 +23,7 @@ html{
     background-color: blue;
     flex-grow: 1;
     width: 100%;
+    max-height: 150px;
     position: relative;
 }
 
@@ -43,7 +45,33 @@ html{
 }
 
 #keypad{
-    background-color: red;
     width: 100%;
-    flex-grow: 3;
+    flex-grow: 2;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2%;
+    box-sizing: border-box;
+}
+
+.normal-btn{
+    flex: 1 0 20%;
+    height: 15%;
+    font-size: 18px;
+    color: #f1e9d4;
+    background-color: #221712;
+    border: none;
+    border-radius: 5px;
+}
+
+.wide-btn {
+    flex-basis: 45.5%;
+}
+
+.light-brown {
+    background-color: #7a6a5f;
+}
+
+.operators {
+    font-size: 22px;
+
 }
