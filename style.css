@@ -8,7 +8,7 @@ html{
 }
 
 #main-container{
-    background-color: grey;
+    background-color: #b5a392;
     height: 600px;
     width: 400px;
     display: flex;
@@ -17,10 +17,15 @@ html{
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 20px #5e5047;
 }
 
 #display{
-    background-color: blue;
+    background-color: #0c120e;
+    color: #e31015;
+    border-radius: 10px;
     flex-grow: 1;
     width: 100%;
     max-height: 150px;
@@ -57,18 +62,31 @@ html{
     flex: 1 0 20%;
     height: 15%;
     font-size: 18px;
-    color: #f1e9d4;
+    color: #e0dbc2;
     background-color: #221712;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 10px #5c4d49;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.normal-btn:active {
+    box-shadow: 0 5px #221712;
+    transform: translateY(4px);
+}
+
+.light-brown {
+    background-color: #7e6d62;
+    box-shadow: 0 9px #30281e;
+}
+
+.light-brown:active{
+    box-shadow: 0 5px #7e6d62;
 }
 
 .wide-btn {
     flex-basis: 45.5%;
-}
-
-.light-brown {
-    background-color: #7a6a5f;
 }
 
 .operators {
