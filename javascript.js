@@ -32,6 +32,7 @@ let number1, operator, number2;
 const digitBtns = document.getElementsByClassName("digit");
 const operatorBtns = document.getElementsByClassName("operators");
 const equalBtn = document.getElementById("equal-btn");
+const clearBtn = document.getElementById("clear-btn");
 
 const miniText = document.getElementById("mini-text");
 const mainText = document.getElementById("main-text");
@@ -71,6 +72,12 @@ function parseExpression() {
 
         number2 = Number(values[2]);
 
+        if (operator === "/" && number2 === 0){
+            clearDisplay();
+            alert("ERROR: DIVISION BY ZERO");
+            return;
+        }
+
         return true;
     }else{
         return false;
@@ -89,6 +96,14 @@ function evaluateExpression(multiOperator=false){
     }else{
         mainText.textContent = round2Digits(operate(number1, operator, number2));
     }
+}
+
+function clearDisplay(){
+    miniText.textContent = "";
+    mainText.textContent = "";
+    number1 = "";
+    number2 = "";
+    operator = "";
 }
 
 const handleEqualInput = () => {
@@ -110,4 +125,8 @@ Array.prototype.forEach.call(operatorBtns, function(operatorBtn) {
 
 equalBtn.addEventListener("click", () => {
     handleEqualInput();
+})
+
+clearBtn.addEventListener("click", () => {
+    clearDisplay();
 })
