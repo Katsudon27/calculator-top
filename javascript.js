@@ -41,40 +41,60 @@ const handleDigitInput = (text) => {
 }
 
 const handleOperatorInput = (text) => {
+    if (parseExpression() === true){
+        evaluateExpression(true);
+    }
     mainText.textContent += " ";
     mainText.textContent += text;
     mainText.textContent += " ";
 }
 
-const handleEqualInput = () => {
-    miniText.textContent = mainText.textContent;
+function parseExpression() {
     const values = mainText.textContent.split(" ");
-    number1 = Number(values[0]);
-    console.log(values[1]);
+    if (Number(values[0]) && Number(values[2])){
+        number1 = Number(values[0])
 
-    switch (values[1]){
-        case "+":
-            operator = "+";
-            break;
-        case "−":
-            operator = "-";
-            break;
-        case "×":
-            operator = "*";
-            break;
-        case "÷":
-            operator = "/";
-            break;
+        switch (values[1]){
+            case "+":
+                operator = "+";
+                break;
+            case "−":
+                operator = "-";
+                break;
+            case "×":
+                operator = "*";
+                break;
+            case "÷":
+                operator = "/";
+                break;
+        }
+
+        number2 = Number(values[2]);
+
+        return true;
+    }else{
+        return false;
     }
-
-    number2 = Number(values[2]);
-    console.log(number1);
-    console.log(number2);
-    console.log(operator);
-    mainText.textContent = operate(number1, operator, number2);
 }
 
+function round2Digits(num){
+    return Math.round(num * 100) / 100;
+}
 
+function evaluateExpression(multiOperator=false){
+    miniText.textContent = mainText.textContent;
+    if(multiOperator === true){
+        number1 = round2Digits(operate(number1, operator, number2));
+        mainText.textContent = number1;
+    }else{
+        mainText.textContent = round2Digits(operate(number1, operator, number2));
+    }
+}
+
+const handleEqualInput = () => {
+    parseExpression();
+    evaluateExpression();
+}
 
 Array.prototype.forEach.call(digitBtns, function(digitBtn) {
     digitBtn.addEventListener("click", () => {
