@@ -35,12 +35,14 @@ const digitBtns = document.getElementsByClassName("digit");
 const operatorBtns = document.getElementsByClassName("operators");
 const equalBtn = document.getElementById("equal-btn");
 const clearBtn = document.getElementById("clear-btn");
+const decimalBtn = document.getElementById("decimal-btn");
 
 const miniText = document.getElementById("mini-text");
 const mainText = document.getElementById("main-text");
 
 let operatorSet = false;
 let isEvaluated = false;
+let containDecimal = false;
 
 const handleDigitInput = (text) => {
     if (isEvaluated){
@@ -59,6 +61,7 @@ const handleOperatorInput = (text) => {
         mainText.textContent += text;
         mainText.textContent += " ";
         operatorSet = true;
+        containDecimal = false;
     }
 }
 
@@ -121,6 +124,13 @@ function clearDisplay(){
     isEvaluated = false;
 }
 
+function addDecimal(text){
+    if (containDecimal === false){
+        mainText.textContent += text;
+        containDecimal = true;
+    }
+}
+
 const handleEqualInput = () => {
     if (parseExpression()){
         evaluateExpression();
@@ -146,4 +156,8 @@ equalBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
     clearDisplay();
+})
+
+decimalBtn.addEventListener("click", () => {
+    addDecimal(decimalBtn.textContent);
 })
