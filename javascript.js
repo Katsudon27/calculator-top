@@ -27,7 +27,9 @@ function operate(num1, operator, num2){
     }
 }
 
-let number1, operator, number2;
+let number1 = "";
+let operator = ""; 
+let number2 = "";
 
 const digitBtns = document.getElementsByClassName("digit");
 const operatorBtns = document.getElementsByClassName("operators");
@@ -37,7 +39,13 @@ const clearBtn = document.getElementById("clear-btn");
 const miniText = document.getElementById("mini-text");
 const mainText = document.getElementById("main-text");
 
+let operatorSet = false;
+let isEvaluated = false;
+
 const handleDigitInput = (text) => {
+    if (isEvaluated){
+        clearDisplay();
+    }
     mainText.textContent += text;
 }
 
@@ -45,14 +53,18 @@ const handleOperatorInput = (text) => {
     if (parseExpression() === true){
         evaluateExpression(true);
     }
-    mainText.textContent += " ";
-    mainText.textContent += text;
-    mainText.textContent += " ";
+
+    if (operatorSet === false){
+        mainText.textContent += " ";
+        mainText.textContent += text;
+        mainText.textContent += " ";
+        operatorSet = true;
+    }
 }
 
 function parseExpression() {
     const values = mainText.textContent.split(" ");
-    if (Number(values[0]) && Number(values[2])){
+    if (values.length === 3 && !isNaN(values[0]) && !isNaN(values[2])){
         number1 = Number(values[0])
 
         switch (values[1]){
@@ -93,6 +105,7 @@ function evaluateExpression(multiOperator=false){
     if(multiOperator === true){
         number1 = round2Digits(operate(number1, operator, number2));
         mainText.textContent = number1;
+        operatorSet = false;
     }else{
         mainText.textContent = round2Digits(operate(number1, operator, number2));
     }
@@ -104,11 +117,15 @@ function clearDisplay(){
     number1 = "";
     number2 = "";
     operator = "";
+    operatorSet = false;
+    isEvaluated = false;
 }
 
 const handleEqualInput = () => {
-    parseExpression();
-    evaluateExpression();
+    if (parseExpression()){
+        evaluateExpression();
+        isEvaluated = true;
+    }
 }
 
 Array.prototype.forEach.call(digitBtns, function(digitBtn) {
