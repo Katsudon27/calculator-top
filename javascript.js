@@ -36,6 +36,7 @@ const operatorBtns = document.getElementsByClassName("operators");
 const equalBtn = document.getElementById("equal-btn");
 const clearBtn = document.getElementById("clear-btn");
 const decimalBtn = document.getElementById("decimal-btn");
+const backspaceBtn = document.getElementById("backspace-btn");
 
 const miniText = document.getElementById("mini-text");
 const mainText = document.getElementById("main-text");
@@ -66,7 +67,7 @@ const handleOperatorInput = (text) => {
 }
 
 function parseExpression() {
-    const values = mainText.textContent.split(" ");
+    const values = mainText.textContent.trim().split(" ");
     if (values.length === 3 && !isNaN(values[0]) && !isNaN(values[2])){
         number1 = Number(values[0])
 
@@ -131,6 +132,15 @@ function addDecimal(text){
     }
 }
 
+function handleBackspace(){
+    let check = isNaN(mainText.textContent.trim().slice(mainText.textContent.length - 1));
+    mainText.textContent = mainText.textContent.slice(0, mainText.textContent.length - 1).trim();
+
+    if(check){
+        operatorSet = false;
+    }
+}
+
 const handleEqualInput = () => {
     if (parseExpression()){
         evaluateExpression();
@@ -160,4 +170,8 @@ clearBtn.addEventListener("click", () => {
 
 decimalBtn.addEventListener("click", () => {
     addDecimal(decimalBtn.textContent);
+})
+
+backspaceBtn.addEventListener("click", () => {
+    handleBackspace();
 })
