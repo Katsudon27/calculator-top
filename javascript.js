@@ -76,9 +76,11 @@ function parseExpression() {
                 operator = "+";
                 break;
             case "−":
+            case "-":
                 operator = "-";
                 break;
             case "×":
+            case "*":
                 operator = "*";
                 break;
             case "÷":
@@ -126,18 +128,21 @@ function clearDisplay(){
 }
 
 function addDecimal(text){
-    if (containDecimal === false){
+    if (containDecimal === false && !isEvaluated){
         mainText.textContent += text;
         containDecimal = true;
     }
 }
 
 function handleBackspace(){
-    let check = isNaN(mainText.textContent.trim().slice(mainText.textContent.length - 1));
-    mainText.textContent = mainText.textContent.slice(0, mainText.textContent.length - 1).trim();
+    if (!isEvaluated){
+        let check = isNaN(mainText.textContent.trim().slice(mainText.textContent.length - 1));
+        mainText.textContent = mainText.textContent.slice(0, mainText.textContent.length - 1).trim();
+        mainText.textContent += " ";
 
-    if(check){
-        operatorSet = false;
+        if(check){
+            operatorSet = false;
+        }
     }
 }
 
@@ -145,6 +150,35 @@ const handleEqualInput = () => {
     if (parseExpression()){
         evaluateExpression();
         isEvaluated = true;
+    }
+}
+
+function checkKeyInput(event){
+    const isNumber = isFinite(event.key) && event.key !== ' ';
+
+    if (isNumber){
+        handleDigitInput(event.key);
+    }else{
+        switch (event.key){
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                handleOperatorInput(event.key);
+                break;
+            case "Enter":
+                handleEqualInput();
+                break;
+            case ".":
+                addDecimal(event.key);
+                break;
+            case "Backspace":
+                handleBackspace();
+                break;
+            case "Delete":
+                clearDisplay();
+                break;
+        }
     }
 }
 
